@@ -1,6 +1,8 @@
 const faturamento = require('./faturamentoMensal')
+const faturamentoEstados = require('./faturamentoPorEstados.json')
 
-const calculoMensal = () => {
+
+const calculoFaturamento = () => {
     let soma = 0
     let arrayValores = []
 
@@ -20,11 +22,24 @@ const calculoMensal = () => {
     const mediaMensal = ((soma / 30))
     const diasFaturamentoSuperior = arrayValores.filter(valor => valor > mediaMensal)
 
+    const percentual = () => {
+
+        for (const data of faturamentoEstados) {
+            let valorEstado = data.valor
+            percentualEstado = ((valorEstado / soma) * 100).toFixed(2)
+
+            console.log(`${data.estado}: ${percentualEstado}`)
+        }
+    }
+
+    percentual()
+
     return {
         menorValor: menorValor,
         maiorValor: maiorValor,
         diasFaturamentoSuperior: diasFaturamentoSuperior.length
     }
+
 }
 
-console.log(calculoMensal())
+console.log(calculoFaturamento())
